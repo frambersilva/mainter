@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap - Mainter Indigo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CORE STYLES (Compartidos)
+           ========================================= */
+        :root {
+            --color-bg: #050507;
+            --color-surface: #121216;
+            --color-primary: #6366f1;
+            --color-success: #10b981; /* Verde para Completado */
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
+            --color-border: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', sans-serif;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+            --blur: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--color-bg); color: var(--color-text); font-family: var(--font-main); line-height: 1.6; }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+        .flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .text-muted { color: var(--color-text-muted); }
+        .font-bold { font-weight: 800; }
+        
+        .btn { padding: 8px 20px; border-radius: 50px; font-weight: 600; border: 1px solid var(--color-border); font-size: 0.9rem;}
+        .btn:hover { background: white; color: black; }
+
+        .site-header {
+            padding: 20px 0; position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(10px); border-bottom: var(--color-border);
+        }
+
+        .page-hero { padding-top: 140px; padding-bottom: 60px; text-align: center; position: relative; }
+        .hero-glow {
+            position: absolute; top: 0; left: 50%; width: 60vw; height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            transform: translateX(-50%); z-index: -1; pointer-events: none;
+        }
+
+        /* =========================================
+           ROADMAP GRID
+           ========================================= */
+        .roadmap-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-bottom: 100px;
+        }
+
+        .status-column h3 {
+            font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 20px;
+            display: flex; align-items: center; gap: 8px; opacity: 0.8;
+        }
+        .dot { width: 8px; height: 8px; border-radius: 50%; }
+        
+        /* Colores de Estado */
+        .dot.progress { background: var(--color-primary); box-shadow: 0 0 10px var(--color-primary); }
+        .dot.planned { background: #cbd5e1; }
+        .dot.future { background: #475569; }
+
+        /* Tarjetas */
+        .task-card {
+            background: var(--glass-bg);
+            border: var(--glass-border);
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 15px;
+            transition: 0.3s;
+            position: relative; overflow: hidden;
+        }
+        .task-card:hover { transform: translateY(-3px); border-color: rgba(255,255,255,0.2); }
+        
+        /* Barra de progreso visual en la tarjeta */
+        .task-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 3px; height: 100%;
+            background: var(--color-border);
+        }
+        .status-progress .task-card::before { background: var(--color-primary); }
+        
+        .tag {
+            font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+            padding: 3px 8px; border-radius: 4px; background: rgba(255,255,255,0.05); color: #888;
+            margin-bottom: 10px; display: inline-block;
+        }
+
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.9rem; }
+
+        @media(max-width: 900px) {
+            .roadmap-grid { grid-template-columns: 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+       <header class="site-header">
+        <div class="container flex justify-between items-center">
+            <a href="landingpage.html" class="font-bold text-xl flex items-center gap-2">
+                <span style="width: 10px; height: 10px; background: var(--color-primary); border-radius: 50%;"></span>
+                Mainter <span class="text-muted" style="font-weight: 400;">Docs</span>
+            </a>
+            <a href="landingpage.html" class="btn text-sm">Volver al Home</a>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="hero-glow"></div>
+        <div class="container reveal">
+            <h1 class="font-bold" style="font-size: 3rem; margin-bottom: 10px;">Roadmap</h1>
+            <p class="text-muted text-xl">¿Qué es lo próximo para Mainter?</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="roadmap-grid">
+
+            <div class="status-column status-progress reveal">
+                <h3><span class="dot progress"></span> En Desarrollo</h3>
+                
+                <div class="task-card">
+                    <span class="tag">Frontend</span>
+                    <h4 class="font-bold text-lg mb-2">Entradas Relacionadas</h4>
+                    <p class="text-muted text-sm">Sistema Grid/Slider al final del post para mostrar contenido similar.</p>
+                </div>
+
+                <div class="task-card">
+                    <span class="tag">UI Design</span>
+                    <h4 class="font-bold text-lg mb-2">Caja de Autor Moderna</h4>
+                    <p class="text-muted text-sm">Rediseño con avatar circular, biografía y redes sociales integradas.</p>
+                </div>
+            </div>
+
+            <div class="status-column reveal" style="transition-delay: 0.2s;">
+                <h3><span class="dot planned"></span> Planeado Q1</h3>
+                
+                <div class="task-card">
+                    <span class="tag">Funcionalidad</span>
+                    <h4 class="font-bold text-lg mb-2">Sidebar Sticky</h4>
+                    <p class="text-muted text-sm">Barra lateral inteligente que acompaña la lectura sin tapar contenido.</p>
+                </div>
+
+                <div class="task-card">
+                    <span class="tag">Core</span>
+                    <h4 class="font-bold text-lg mb-2">Comentarios UI</h4>
+                    <p class="text-muted text-sm">Lavado de cara a la sección de comentarios nativa de WordPress.</p>
+                </div>
+            </div>
+
+            <div class="status-column reveal" style="transition-delay: 0.4s;">
+                <h3><span class="dot future"></span> Conceptos Futuros</h3>
+                
+                <div class="task-card" style="opacity: 0.7;">
+                    <span class="tag">Themes</span>
+                    <h4 class="font-bold text-lg mb-2">Switcher Claro / Oscuro</h4>
+                    <p class="text-muted text-sm">Variables CSS globales para cambio de tema dinámico.</p>
+                </div>
+                
+                <div class="task-card" style="opacity: 0.7;">
+                    <span class="tag">Integración</span>
+                    <h4 class="font-bold text-lg mb-2">Soporte WooCommerce</h4>
+                    <p class="text-muted text-sm">Estilos básicos para tiendas online minimalistas.</p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Mainter Theme. Transparencia ante todo.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>

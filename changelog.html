@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Changelog - Mainter Indigo</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+    <style>
+        /* =========================================
+           CORE STYLES (Mismos que Landing)
+           ========================================= */
+        :root {
+            --color-bg: #050507;
+            --color-surface: #121216;
+            --color-primary: #6366f1; /* Indigo */
+            --color-text: #e2e8f0;
+            --color-text-muted: #94a3b8;
+            --color-border: rgba(255, 255, 255, 0.08);
+            --font-main: 'Inter', sans-serif;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: 1px solid rgba(255, 255, 255, 0.05);
+            --blur: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            font-family: var(--font-main);
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* Utilidades */
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; } /* Más estrecho para lectura */
+        .flex { display: flex; }
+        .justify-between { justify-content: space-between; }
+        .items-center { align-items: center; }
+        .text-primary { color: var(--color-primary); }
+        .text-muted { color: var(--color-text-muted); }
+        .font-bold { font-weight: 800; }
+        .btn { padding: 10px 25px; border-radius: 50px; font-weight: 600; background: var(--color-primary); color: white; }
+        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(99, 102, 241, 0.3); }
+
+        /* Glass Panel */
+        .glass-panel {
+            background: var(--glass-bg);
+            backdrop-filter: blur(var(--blur));
+            -webkit-backdrop-filter: blur(var(--blur));
+            border: var(--glass-border);
+            border-radius: 16px;
+            padding: 30px;
+            transition: 0.3s;
+        }
+
+        /* Header Sticky */
+        .site-header {
+            padding: 20px 0; position: fixed; top: 0; width: 100%; z-index: 100;
+            background: rgba(5, 5, 7, 0.8); backdrop-filter: blur(10px); border-bottom: var(--color-border);
+        }
+
+        /* Hero Mini */
+        .page-hero {
+            padding-top: 140px; padding-bottom: 60px; text-align: center; position: relative;
+        }
+        .hero-glow {
+            position: absolute; top: 0; left: 50%; width: 60vw; height: 400px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.15) 0%, transparent 70%);
+            transform: translateX(-50%); z-index: -1; pointer-events: none;
+        }
+
+        /* =========================================
+           TIMELINE STYLES (Específico Changelog)
+           ========================================= */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+            border-left: 2px solid var(--color-border);
+            margin-bottom: 100px;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 60px;
+        }
+
+        /* El punto en la línea */
+        .timeline-dot {
+            position: absolute;
+            left: -49px; /* Ajuste para centrar en la línea */
+            top: 25px;
+            width: 16px; height: 16px;
+            background: var(--color-bg);
+            border: 2px solid var(--color-primary);
+            border-radius: 50%;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.5);
+            z-index: 2;
+        }
+
+        .version-tag {
+            display: inline-block;
+            background: rgba(99, 102, 241, 0.1);
+            color: var(--color-primary);
+            padding: 4px 12px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            border: 1px solid rgba(99, 102, 241, 0.2);
+        }
+
+        .change-list li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            color: var(--color-text-muted);
+        }
+        .change-list li::before {
+            content: '→';
+            position: absolute; left: 0; color: var(--color-primary);
+        }
+
+        /* Animaciones */
+        .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Footer Simple */
+        footer { border-top: 1px solid var(--color-border); padding: 40px 0; text-align: center; color: var(--color-text-muted); font-size: 0.9rem; }
+
+        @media(max-width: 600px) {
+            .container { padding: 0 15px; }
+            .timeline { padding-left: 20px; border-left: 1px solid var(--color-border); }
+            .timeline-dot { left: -25px; width: 10px; height: 10px; top: 30px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="site-header">
+        <div class="container flex justify-between items-center">
+            <a href="landingpage.html" class="font-bold text-xl flex items-center gap-2">
+                <span style="width: 10px; height: 10px; background: var(--color-primary); border-radius: 50%;"></span>
+                Mainter <span class="text-muted" style="font-weight: 400;">Docs</span>
+            </a>
+            <a href="landingpage.html" class="btn text-sm">Volver al Home</a>
+        </div>
+    </header>
+
+    <section class="page-hero">
+        <div class="hero-glow"></div>
+        <div class="container reveal">
+            <h1 class="font-bold" style="font-size: 3rem; margin-bottom: 10px;">Changelog</h1>
+            <p class="text-muted text-xl">Evolución constante. Transparencia total.</p>
+        </div>
+    </section>
+
+    <section class="container">
+        <div class="timeline">
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="glass-panel">
+                    <div class="flex justify-between items-center" style="margin-bottom: 10px;">
+                        <span class="version-tag">v1.2.0</span>
+                        <span class="text-muted text-sm">16 Enero, 2026</span>
+                    </div>
+                    <h2 class="text-xl font-bold mb-4">Refinamiento y Opciones de Hero</h2>
+                    <ul class="change-list">
+                        <li><strong>Nuevo:</strong> Checkbox en Customizer para ocultar/mostrar Fecha y Categoría en el Hero.</li>
+                        <li><strong>Mejora:</strong> Implementación de <code>clamp()</code> CSS para tipografía fluida en títulos.</li>
+                        <li><strong>Fix:</strong> Reorganización del panel de opciones con prioridad lógica.</li>
+                        <li><strong>Diseño:</strong> Ajuste visual "Clean" para el Hero Overlay (minimalista por defecto).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot" style="background: #121216; border-color: #4f46e5;"></div>
+                <div class="glass-panel">
+                    <span class="version-tag" style="background: rgba(255,255,255,0.05); color: #fff; border-color: rgba(255,255,255,0.1);">v1.1.0</span>
+                    <h2 class="text-xl font-bold mb-4 my-2">Sistema de Sliders y App Layout</h2>
+                    <ul class="change-list">
+                        <li><strong>Nuevo Layout:</strong> Diseño "App Store" vertical con fondo Blur para móviles.</li>
+                        <li><strong>Core:</strong> Slider CSS puro con Scroll Snap (Touch nativo).</li>
+                        <li><strong>Responsive:</strong> Transformación automática de Grid Bento a Slider en pantallas < 768px.</li>
+                        <li><strong>Fix:</strong> Solución a contenido duplicado en <code>single.php</code>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-dot" style="background: #121216; border-color: #333;"></div>
+                <div class="glass-panel" style="opacity: 0.7;">
+                    <span class="version-tag" style="background: transparent; border: 1px solid #333; color: #888;">v1.0.0</span>
+                    <h2 class="text-xl font-bold mb-4 my-2">Lanzamiento Inicial</h2>
+                    <ul class="change-list">
+                        <li>Estructura base del tema Mainter.</li>
+                        <li>Integración de Tailwind-like utilities con CSS puro.</li>
+                        <li>Configuración inicial del Customizer API.</li>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>© 2026 Mainter Theme. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
